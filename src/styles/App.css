@@ -26,18 +26,32 @@ body {
   display: flex;
   flex-direction: row;
   text-align: left;
-
-  /* background: deepskyblue; */
 }
 
 .task-parent {
   background-color: #fafafa;
   flex: 2;
-  height: 400px;
+
+  padding: 1em;
+}
+
+.task-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .create-task-parent {
   background-color: #eeeeee;
   flex: 1;
-  height: auto;
+  padding: 2em;
+}
+
+.row {
+  /* display: flex; */
+
+  background-color: #e0e0e0;
+  flex-direction: column;
+  padding: 20px;
+  margin: 10px 0;
 }
