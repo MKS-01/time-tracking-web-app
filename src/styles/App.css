@@ -1,0 +1,43 @@
+.App {
+  display: flex;
+  flex-wrap: wrap;
+  /* display: grid; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* height: 100px; */
+}
+
+body {
+  padding: 2em;
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.wrapper > * {
+  padding: 10px;
+  flex: 1 100%;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+
+  /* background: deepskyblue; */
+}
+
+.task-parent {
+  background-color: #fafafa;
+  flex: 2;
+  height: 400px;
+}
+
+.create-task-parent {
+  background-color: #eeeeee;
+  flex: 1;
+  height: auto;
+}
