@@ -20,8 +20,8 @@ function Row() {
           </div>
         </form>{' '}
         <div>00:33:24</div>
-        <button onclick='activateLasers()'>Start</button>
-        <button onclick='activateLasers()'>Stop</button>
+        <button>Start</button>
+        <button>Stop</button>
       </div>
       <div className='task-row'>
         <Tags />
