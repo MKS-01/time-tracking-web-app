@@ -32,10 +32,11 @@ const GET_TAGS = gql`
   }
 `;
 
-const createTask = () => {
+const CreateTask = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [title, setTitle] = useState('');
 
+  const [createTask] = useMutation(CREATE_TASK);
   return (
     <div className='create-task-parent'>
       <h4>Create Task</h4>
@@ -43,6 +44,7 @@ const createTask = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          createTask({ variables: { title: title } });
         }}>
         <input
           type='text'
@@ -75,4 +77,4 @@ const TagComponent = () => {
   );
 };
 
-export default createTask;
+export default CreateTask;
