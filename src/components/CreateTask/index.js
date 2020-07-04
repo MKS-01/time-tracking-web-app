@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Tags from '../Tags';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import { GET_TASKS } from '../Task';
 
 const CREATE_TASK = gql`
   mutation($title: String!) {
@@ -36,7 +37,23 @@ const CreateTask = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [title, setTitle] = useState('');
 
-  const [createTask] = useMutation(CREATE_TASK);
+  const updateCache = (cache, { data }) => {
+    const existingTasks = cache.readQuery({
+      query: GET_TASKS,
+    });
+    // Add the new todo to the cache
+    const newTasks = data.task_tags;
+    console.log('check update', newTasks);
+    cache.writeQuery({
+      query: GET_TASKS,
+      data: { tasks: [newTasks, ...existingTasks.tasks] },
+    });
+  };
+
+  const [createTask] = useMutation(
+    CREATE_TASK
+    //  { update: updateCache }
+  );
   return (
     <div className='create-task-parent'>
       <h4>Create Task</h4>

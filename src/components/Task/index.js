@@ -1,10 +1,9 @@
 import React from 'react';
 import Tags from '../Tags';
 import { useQuery } from '@apollo/react-hooks';
-
 import gql from 'graphql-tag';
 
-const GET_TASKS = gql`
+export const GET_TASKS = gql`
   query {
     tasks {
       id
