@@ -1,33 +1,74 @@
 import React from 'react';
 import Tags from '../Tags';
+import { useQuery } from '@apollo/react-hooks';
 
-function index() {
+import gql from 'graphql-tag';
+
+const GET_TASKS = gql`
+  query {
+    tasks {
+      id
+      title
+      tags {
+        id
+        name
+      }
+      start_time
+    }
+  }
+`;
+
+const Task = () => {
+  const { loading, error, data } = useQuery(GET_TASKS);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    console.error(error);
+    return <div>Error!</div>;
+  }
+
   return (
     <div className='task-parent'>
-      <Row />
-      <Row />
+      <Row data={data} />
     </div>
   );
-}
+};
 
-function Row() {
+const Row = ({ data }) => {
+  // const [text, setText] = React.useState('');
+  const { tasks } = data;
+
   return (
-    <div className='row'>
-      <div className='task-row'>
-        <form>
-          <div>
-            <input type='text' name='name' placeholder='title' />
+    <div>
+      {tasks.map(({ title, id, start_time, tags }) => (
+        <div className='row' key={id}>
+          <div className='task-row'>
+            <form>
+              <div>
+                {/* <input
+                  type='text'
+                  name='name'
+                  placeholder='title'
+                  defaultValue={title}
+                  value={text}
+                  // onChange={(e) => setText(e.target.value)}
+                /> */}
+                {title}
+              </div>
+            </form>{' '}
+            <div>00:33:24</div>
+            <button>Start</button>
+            <button>Stop</button>
           </div>
-        </form>{' '}
-        <div>00:33:24</div>
-        <button>Start</button>
-        <button>Stop</button>
-      </div>
-      <div className='task-row'>
-        <Tags />
-      </div>
+          <div className='task-row'>
+            <Tags tags={tags} />
+          </div>
+        </div>
+      ))}
     </div>
   );
-}
+};
 
-export default index;
+export default Task;

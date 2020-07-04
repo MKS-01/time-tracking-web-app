@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export class index extends Component {
-  render() {
-    return (
-      <div>
-        <ul>
-          <li>ui-design</li>
-          <li>marketing</li>
-        </ul>
-      </div>
-    );
-  }
-}
+const Tags = ({ tags }) => {
+  return (
+    <div>
+      <ul>
+        {tags.map(({ id, name }) => (
+          <li key={id}>{name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
-export default index;
+export default Tags;
