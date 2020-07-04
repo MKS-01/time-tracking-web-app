@@ -58,7 +58,7 @@ const Row = ({ data }) => {
                 {title}
               </div>
             </form>{' '}
-            <div>00:33:24</div>
+            <div>00:00:00</div>
             <button>Start</button>
             <button>Stop</button>
           </div>

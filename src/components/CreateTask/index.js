@@ -1,7 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Tags from '../Tags';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+
+const CREATE_TASK = gql`
+  mutation($title: String!) {
+    insert_tasks_one(
+      object: {
+        title: $title
+        task_tags: { data: [{ tag_id: 16 }, { tag_id: 17 }] }
+      }
+    ) {
+      id
+      title
+      task_tags {
+        tag_id
+        tag {
+          name
+        }
+      }
+    }
+  }
+`;
 
 const GET_TAGS = gql`
   query {
@@ -12,20 +32,31 @@ const GET_TAGS = gql`
   }
 `;
 
-function index() {
+const createTask = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [title, setTitle] = useState('');
+
   return (
     <div className='create-task-parent'>
       <h4>Create Task</h4>
 
-      <form>
-        <input type='text' name='name' placeholder='title' />
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}>
+        <input
+          type='text'
+          name='name'
+          placeholder='Title'
+          onChange={(e) => setTitle(e.target.value)}
+        />
 
         <TagComponent />
         <input type='submit' value='Submit' />
       </form>
     </div>
   );
-}
+};
 
 const TagComponent = () => {
   const { loading, error, data } = useQuery(GET_TAGS);
@@ -44,4 +75,4 @@ const TagComponent = () => {
   );
 };
 
-export default index;
+export default createTask;
